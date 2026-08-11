@@ -11,6 +11,8 @@ optimisation model, then explains which constraints shaped the result.
 This repository holds the **public website** for CLARO. The optimisation engine itself
 lives in a separate repository, linked below.
 
+CLARO records anonymous usage events (session start, optimisation started, optimisation completed) in a Supabase table to measure adoption. No user inputs, budget figures, uploaded data, results, IP addresses or cookies are stored.
+
 ## Use CLARO
 
 | | |
