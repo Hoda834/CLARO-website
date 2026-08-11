@@ -1,0 +1,55 @@
+# CLARO
+
+> CLARO (Constrained Linear Allocation and Resource Optimiser) is free, open-source
+> decision-support software that allocates a fixed marketing budget across advertising
+> platforms and business objectives using linear programming. It turns historical KPI
+> performance, business priorities and real operating constraints into a single auditable
+> optimisation model, then explains which constraints shaped the result.
+
+- Author: Hoda Rezvanjoo (ORCID 0009-0006-3882-2669)
+- Licence: MIT — free for commercial use
+- Version: 0.2.1
+- Solver: linear programming via PuLP with the CBC backend
+- Language: Python >=3.10
+- Install: `pip install claro-engine`
+
+## What it does
+
+Given a fixed budget, a set of marketing objectives (awareness, engagement, website
+traffic, lead generation) and historical platform performance, CLARO solves a linear
+program over platform-objective cells. It maximises weighted KPI productivity subject to
+explicitly declared constraints: total budget, per-platform minimum spend, per-objective
+minimums, a test-and-learn reserve, seasonality multipliers, and diminishing-returns
+brackets that stop any single cell absorbing the plan. It then reports binding
+constraints and shadow prices so the result can be interrogated rather than trusted.
+
+Twelve advertising platforms are supported with CSV import: Facebook, Instagram,
+LinkedIn, YouTube, Google Search, Google Display, Google Performance Max, TikTok,
+Pinterest, X (Twitter), Snapchat and Reddit.
+
+## What it does not do
+
+CLARO does not operate campaigns, place bids or connect to advertising platform APIs, and
+it does not estimate causal incrementality. It works from CSV exports and inherits the
+strengths and biases of the KPI data supplied.
+
+## Who it is for
+
+Marketing and media planners, analytics and marketing science teams, agencies and
+consultants, and researchers or students studying applied operations research.
+
+## Links
+
+- Website: https://hoda834.github.io/CLARO-website/
+- Run the optimiser (no installation): https://claro-decision-support.streamlit.app/
+- Source code: https://github.com/Hoda834/digital-budget-optimisation-engine
+- Documentation: https://github.com/Hoda834/digital-budget-optimisation-engine/wiki
+- Python package: https://pypi.org/project/claro-engine/
+- Archived release (concept DOI): https://doi.org/10.5281/zenodo.20517492
+- Archived release (v0.2.1): https://doi.org/10.5281/zenodo.21230206
+
+## Citation
+
+Rezvanjoo, Hoda. *CLARO: Constrained Linear Allocation and Resource Optimiser — a
+Decision-Support Framework for Marketing Budget Allocation*. Version 0.2.1. Zenodo.
+doi:10.5281/zenodo.21230206
