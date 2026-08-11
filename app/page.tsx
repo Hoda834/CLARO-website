@@ -1,7 +1,34 @@
-const appUrl = "https://claro-decision-support.streamlit.app/";
-const repoUrl = "https://github.com/Hoda834/digital-budget-optimisation-engine";
-const wikiUrl = `${repoUrl}/wiki`;
-const doiUrl = "https://doi.org/10.5281/zenodo.20517492";
+import {
+  audiences,
+  capabilities,
+  definition,
+  faqs,
+  outputs,
+  useCase,
+} from "./content";
+import {
+  appUrl,
+  author,
+  citationFileUrl,
+  conceptDoiUrl,
+  orcidUrl,
+  pypiUrl,
+  release,
+  repoUrl,
+  versionDoiUrl,
+  wikiUrl,
+  withUtm,
+} from "./site-config";
+
+// Every outbound link is tagged so the AI/search → website → optimiser funnel
+// can be measured end to end.
+const appHeroUrl = withUtm(appUrl, "hero");
+const appFinalUrl = withUtm(appUrl, "final_cta");
+const appUseCaseUrl = withUtm(appUrl, "use_case");
+const repoLink = withUtm(repoUrl, "evidence");
+const repoFooterLink = withUtm(repoUrl, "footer");
+const wikiLink = withUtm(wikiUrl, "docs");
+const pypiLink = withUtm(pypiUrl, "install");
 
 function Arrow() {
   return <span aria-hidden="true">↗</span>;
@@ -78,76 +105,74 @@ function ConstraintVisual() {
   );
 }
 
-const capabilities = [
-  {
-    number: "01",
-    title: "Decision design",
-    text: "Make objectives, priorities, minimum spends, goal values, reserve and seasonality explicit before solving.",
-  },
-  {
-    number: "02",
-    title: "Constrained allocation",
-    text: "Allocate across platform-objective cells with diminishing returns and named, auditable LP constraints.",
-  },
-  {
-    number: "03",
-    title: "Honest uncertainty",
-    text: "Compare conservative, base and optimistic scenarios, with optional Monte Carlo stability testing.",
-  },
-  {
-    number: "04",
-    title: "Decision interpretation",
-    text: "Surface binding constraints, shadow prices, concentration, risks and a feasible risk-managed alternative.",
-  },
-];
-
-const outputs = [
-  "Platform-objective allocation",
-  "Three-scenario comparison",
-  "Data-driven forecast bands",
-  "Binding constraints and shadow prices",
-  "Diagnostic index and classification",
-  "Plan A and risk-managed Plan B",
-  "PDF and Excel decision artefacts",
-];
-
 export default function Home() {
   return (
     <main>
       <header className="site-header">
         <a className="brand" href="#top" aria-label="CLARO home">CLARO</a>
         <nav aria-label="Primary navigation">
+          <a href="#what-is-claro">What is CLARO</a>
           <a href="#method">How it works</a>
-          <a href="#capabilities">Capabilities</a>
-          <a href="#evidence">Evidence</a>
-          <a href={wikiUrl} target="_blank" rel="noreferrer">Documentation</a>
+          <a href="#use-case">Use cases</a>
+          <a href="#faq">FAQ</a>
+          <a href={wikiLink} target="_blank" rel="noreferrer">Documentation</a>
         </nav>
-        <a className="icon-link" href={repoUrl} target="_blank" rel="noreferrer" aria-label="View CLARO on GitHub">
+        <a className="icon-link" href={repoLink} target="_blank" rel="noreferrer" aria-label="View CLARO on GitHub">
           <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .8a11.4 11.4 0 0 0-3.6 22.2c.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.4-1.3-1.8-1.3-1.8-1.1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1.1 1.8 2.8 1.3 3.5 1 .1-.8.4-1.3.8-1.6-2.6-.3-5.4-1.3-5.4-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C17 4.9 18 5.2 18 5.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.4 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.7.8.6A11.4 11.4 0 0 0 12 .8Z" /></svg>
         </a>
       </header>
 
       <section className="hero" id="top">
         <div className="hero-copy">
-          <p className="eyebrow">Linear programming. Defensible allocation.</p>
-          <h1>Allocate with constraints.<br />Decide with evidence.</h1>
-          <p className="hero-text">
-            An open-source decision-support framework for marketing budget allocation. CLARO connects historical performance, business priorities and uncertainty in one auditable model.
-          </p>
+          <p className="eyebrow">Allocate with constraints. Decide with evidence.</p>
+          <h1>
+            <span className="h1-brand">CLARO</span>
+            <span className="sr-only"> — </span>
+            <span className="h1-desc">
+              Open-source marketing budget optimisation and decision-support software
+            </span>
+          </h1>
+          <p className="hero-text">{definition}</p>
           <div className="button-row">
-            <a className="button primary" href={appUrl} target="_blank" rel="noreferrer">Try the live optimiser <Arrow /></a>
-            <a className="button secondary" href="#method">Explore the method <span aria-hidden="true">↓</span></a>
+            <a className="button primary" href={appHeroUrl} target="_blank" rel="noreferrer">Run CLARO in your browser <Arrow /></a>
+            <a className="button secondary" href="#what-is-claro">What CLARO does <span aria-hidden="true">↓</span></a>
           </div>
           <div className="trust-row" aria-label="Project facts">
-            <div><strong>243</strong><span>tests</span></div>
-            <div><strong>12</strong><span>platforms</span></div>
-            <div><strong>Open</strong><span>source</span></div>
+            <div><strong>Free</strong><span>MIT licence</span></div>
+            <div><strong>{release.testCount}</strong><span>tests</span></div>
+            <div><strong>{release.platformCount}</strong><span>platforms</span></div>
           </div>
         </div>
         <ConstraintVisual />
       </section>
 
-      <section className="problem light-section" id="method">
+      <section className="definition light-section" id="what-is-claro">
+        <div className="section-kicker">What is CLARO?</div>
+        <div className="statement-grid">
+          <h2>An open-source tool for constrained marketing budget optimisation.</h2>
+          <div>
+            <p>
+              CLARO stands for <strong>Constrained Linear Allocation and Resource Optimiser</strong>. Given a fixed
+              marketing budget, a set of business objectives and your historical platform performance, it solves a
+              linear program that decides how much budget each platform-objective pair should receive — and then
+              reports which constraints stopped the allocation going further.
+            </p>
+            <p>
+              It runs two ways. The hosted optimiser is a guided browser application that needs no installation. The
+              Python engine installs from PyPI as <code>claro-engine</code> and can be used directly in notebooks or
+              pipelines. Both are MIT-licensed and share the same solver.
+            </p>
+          </div>
+        </div>
+        <dl className="fact-strip">
+          <div><dt>Method</dt><dd>Linear programming ({release.solver})</dd></div>
+          <div><dt>Install</dt><dd><code>pip install claro-engine</code></dd></div>
+          <div><dt>Licence</dt><dd>{release.licence}, free for commercial use</dd></div>
+          <div><dt>Version</dt><dd>{release.version}, Python {release.pythonRequirement}</dd></div>
+        </dl>
+      </section>
+
+      <section className="problem light-section">
         <div className="section-kicker">The decision problem</div>
         <div className="statement-grid">
           <h2>More data does not remove the need to make trade-offs.</h2>
@@ -158,7 +183,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="method-section light-section">
+      <section className="method-section light-section" id="method">
         <div className="section-heading">
           <div>
             <p className="section-kicker">How CLARO works</p>
@@ -202,16 +227,71 @@ export default function Home() {
         </div>
       </section>
 
+      <section className="audience light-section" id="who-uses-claro">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Who uses CLARO</p>
+            <h2>For anyone who has to defend a budget split.</h2>
+          </div>
+          <p>The common thread is a fixed budget, competing objectives and a decision that will be questioned.</p>
+        </div>
+        <div className="audience-grid">
+          {audiences.map((item) => (
+            <article key={item.role}>
+              <h3>{item.role}</h3>
+              <p>{item.text}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="use-case" id="use-case">
+        <div className="section-heading dark-heading">
+          <div>
+            <p className="section-kicker">Example use case</p>
+            <h2>Allocating a £120,000 quarterly budget.</h2>
+          </div>
+          <p>{useCase.scenario}</p>
+        </div>
+        <ol className="use-case-steps">
+          {useCase.steps.map((step, index) => (
+            <li key={step.label}>
+              <span>{String(index + 1).padStart(2, "0")}</span>
+              <h3>{step.label}</h3>
+              <p>{step.text}</p>
+            </li>
+          ))}
+        </ol>
+        <a className="button primary" href={appUseCaseUrl} target="_blank" rel="noreferrer">Try this in the optimiser <Arrow /></a>
+      </section>
+
       <section className="outputs light-section">
         <div className="output-copy">
           <p className="section-kicker">What you get</p>
           <h2>A recommendation, its logic and its limits.</h2>
           <p>CLARO preserves the distinction between model output and managerial judgement. Every result carries the assumptions and caveats needed to assess it.</p>
-          <a className="text-link" href={wikiUrl} target="_blank" rel="noreferrer">Read the project wiki <Arrow /></a>
+          <a className="text-link" href={wikiLink} target="_blank" rel="noreferrer">Read the project wiki <Arrow /></a>
         </div>
         <div className="output-list">
           {outputs.map((output, index) => (
             <div key={output}><span>{String(index + 1).padStart(2, "0")}</span><p>{output}</p><b aria-hidden="true">+</b></div>
+          ))}
+        </div>
+      </section>
+
+      <section className="faq light-section" id="faq">
+        <div className="section-heading">
+          <div>
+            <p className="section-kicker">Frequently asked questions</p>
+            <h2>Common questions about CLARO.</h2>
+          </div>
+        </div>
+        <div className="faq-list">
+          {faqs.map((faq) => (
+            <article key={faq.question}>
+              <h3>{faq.question}</h3>
+              <p>{faq.answer}</p>
+            </article>
           ))}
         </div>
       </section>
@@ -224,15 +304,28 @@ export default function Home() {
           </div>
         </div>
         <div className="evidence-grid">
-          <a href={repoUrl} target="_blank" rel="noreferrer">
+          <a href={repoLink} target="_blank" rel="noreferrer">
             <span>Source</span><strong>Public GitHub repository</strong><p>Code, tests, examples and implementation history.</p><Arrow />
           </a>
-          <a href={doiUrl} target="_blank" rel="noreferrer">
+          <a href={pypiLink} target="_blank" rel="noreferrer">
+            <span>Package</span><strong>claro-engine on PyPI</strong><p>Install the optimisation engine with pip and use it directly.</p><Arrow />
+          </a>
+          <a href={conceptDoiUrl} target="_blank" rel="noreferrer">
             <span>Archive</span><strong>Persistent Zenodo record</strong><p>Versioned release with a permanent DOI.</p><Arrow />
           </a>
-          <a href={`${repoUrl}/actions`} target="_blank" rel="noreferrer">
-            <span>Verification</span><strong>243 automated tests</strong><p>Regression, accuracy, edge-case and behavioural coverage.</p><Arrow />
-          </a>
+        </div>
+        <div className="citation">
+          <h3>How to cite CLARO</h3>
+          <p className="citation-text">
+            {author.name}. <em>CLARO: Constrained Linear Allocation and Resource Optimiser — a Decision-Support
+            Framework for Marketing Budget Allocation</em>. Version {release.version}. Zenodo.{" "}
+            <a href={versionDoiUrl} target="_blank" rel="noreferrer">doi:10.5281/zenodo.21230206</a>
+          </p>
+          <div className="citation-links">
+            <a href={conceptDoiUrl} target="_blank" rel="noreferrer">Concept DOI <Arrow /></a>
+            <a href={citationFileUrl} target="_blank" rel="noreferrer">CITATION.cff <Arrow /></a>
+            <a href={orcidUrl} target="_blank" rel="noreferrer">ORCID <Arrow /></a>
+          </div>
         </div>
       </section>
 
@@ -250,20 +343,21 @@ export default function Home() {
       <section className="final-cta">
         <p className="section-kicker">Start with the decision structure</p>
         <h2>Make the trade-offs visible.</h2>
-        <p>Run the guided optimiser or inspect the full open-source method.</p>
+        <p>Run the guided optimiser in your browser, or install the engine and inspect the full open-source method.</p>
         <div className="button-row centred">
-          <a className="button primary" href={appUrl} target="_blank" rel="noreferrer">Open CLARO <Arrow /></a>
-          <a className="button secondary" href={repoUrl} target="_blank" rel="noreferrer">View source <Arrow /></a>
+          <a className="button primary" href={appFinalUrl} target="_blank" rel="noreferrer">Launch the optimiser <Arrow /></a>
+          <a className="button secondary" href={repoFooterLink} target="_blank" rel="noreferrer">View source <Arrow /></a>
         </div>
       </section>
 
       <footer>
         <a className="brand" href="#top">CLARO</a>
-        <p>Constrained Linear Allocation and Resource Optimiser</p>
+        <p>Constrained Linear Allocation and Resource Optimiser · MIT licence · {author.name}</p>
         <div>
-          <a href={repoUrl} target="_blank" rel="noreferrer">GitHub</a>
-          <a href={wikiUrl} target="_blank" rel="noreferrer">Wiki</a>
-          <a href={doiUrl} target="_blank" rel="noreferrer">DOI</a>
+          <a href={repoFooterLink} target="_blank" rel="noreferrer">GitHub</a>
+          <a href={pypiLink} target="_blank" rel="noreferrer">PyPI</a>
+          <a href={wikiLink} target="_blank" rel="noreferrer">Wiki</a>
+          <a href={conceptDoiUrl} target="_blank" rel="noreferrer">DOI</a>
         </div>
       </footer>
     </main>
