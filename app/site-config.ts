@@ -3,13 +3,22 @@
  * Update values here rather than editing pages directly.
  */
 
-/** Set NEXT_PUBLIC_BASE_PATH to "" when building for a custom domain. */
-export const basePath =
-  process.env.NEXT_PUBLIC_BASE_PATH ?? "/CLARO-website";
+/**
+ * An undefined GitHub Actions repository variable arrives as an empty string,
+ * not as undefined, so `??` never falls back. Treat empty as "not set" and use
+ * the sentinel "/" to mean "serve from the root of a custom domain".
+ */
+function readBasePath(): string {
+  const value = process.env.NEXT_PUBLIC_BASE_PATH;
+  if (value === undefined || value === "") return "/CLARO-website";
+  return value === "/" ? "" : value.replace(/\/$/, "");
+}
+
+export const basePath = readBasePath();
 
 /** Absolute origin the site is served from, without a trailing slash. */
 export const siteOrigin =
-  process.env.NEXT_PUBLIC_SITE_ORIGIN ?? "https://hoda834.github.io";
+  process.env.NEXT_PUBLIC_SITE_ORIGIN || "https://hoda834.github.io";
 
 export const siteUrl = `${siteOrigin}${basePath}`;
 
