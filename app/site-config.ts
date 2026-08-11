@@ -51,18 +51,25 @@ export const author = {
 };
 
 /**
- * Tags an outbound link so referral traffic from this site is attributable in
- * analytics. Traffic arriving here from AI search already carries its own
- * utm_source (e.g. chatgpt.com), so the two hops can be joined later.
+ * Tags an outbound link.
+ *
+ * utm_source is the visitor's ORIGINAL source, passed straight through, so a
+ * visit that began in ChatGPT still reads as chatgpt.com once it reaches the
+ * optimiser. utm_medium is always claro_website, which is what separates
+ * traffic routed through this site from someone opening the Streamlit link
+ * directly out of the README. utm_campaign is the placement that was clicked.
+ *
+ * Only pass a source for links into our own app. Third-party destinations
+ * (GitHub, PyPI) cannot report these parameters back to us anyway.
  */
 export function withUtm(
   url: string,
   campaign: string,
-  medium = "referral",
+  source = "claro_website",
 ): string {
   const parsed = new URL(url);
-  parsed.searchParams.set("utm_source", "claro_website");
-  parsed.searchParams.set("utm_medium", medium);
+  parsed.searchParams.set("utm_source", source);
+  parsed.searchParams.set("utm_medium", "claro_website");
   parsed.searchParams.set("utm_campaign", campaign);
   return parsed.toString();
 }
