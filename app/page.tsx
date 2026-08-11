@@ -1,3 +1,4 @@
+import AppLink from "./AppLink";
 import {
   audiences,
   capabilities,
@@ -22,9 +23,6 @@ import {
 
 // Every outbound link is tagged so the AI/search → website → optimiser funnel
 // can be measured end to end.
-const appHeroUrl = withUtm(appUrl, "hero");
-const appFinalUrl = withUtm(appUrl, "final_cta");
-const appUseCaseUrl = withUtm(appUrl, "use_case");
 const repoLink = withUtm(repoUrl, "evidence");
 const repoFooterLink = withUtm(repoUrl, "footer");
 const wikiLink = withUtm(wikiUrl, "docs");
@@ -134,7 +132,7 @@ export default function Home() {
           </h1>
           <p className="hero-text">{definition}</p>
           <div className="button-row">
-            <a className="button primary" href={appHeroUrl} target="_blank" rel="noreferrer">Run CLARO in your browser <Arrow /></a>
+            <AppLink className="button primary" campaign="hero">Run CLARO in your browser <Arrow /></AppLink>
             <a className="button secondary" href="#what-is-claro">What CLARO does <span aria-hidden="true">↓</span></a>
           </div>
           <div className="trust-row" aria-label="Project facts">
@@ -262,7 +260,7 @@ export default function Home() {
             </li>
           ))}
         </ol>
-        <a className="button primary" href={appUseCaseUrl} target="_blank" rel="noreferrer">Try this in the optimiser <Arrow /></a>
+        <AppLink className="button primary" campaign="use_case">Try this in the optimiser <Arrow /></AppLink>
       </section>
 
       <section className="outputs light-section">
@@ -345,7 +343,7 @@ export default function Home() {
         <h2>Make the trade-offs visible.</h2>
         <p>Run the guided optimiser in your browser, or install the engine and inspect the full open-source method.</p>
         <div className="button-row centred">
-          <a className="button primary" href={appFinalUrl} target="_blank" rel="noreferrer">Launch the optimiser <Arrow /></a>
+          <AppLink className="button primary" campaign="final_cta">Launch the optimiser <Arrow /></AppLink>
           <a className="button secondary" href={repoFooterLink} target="_blank" rel="noreferrer">View source <Arrow /></a>
         </div>
       </section>
