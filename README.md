@@ -84,7 +84,7 @@ under Settings → Secrets and variables → Actions → Variables:
 
 | Variable | Default | Purpose |
 |---|---|---|
-| `NEXT_PUBLIC_BASE_PATH` | `/CLARO-website` | Path prefix. Set to an empty string when serving from a custom domain root. |
+| `NEXT_PUBLIC_BASE_PATH` | `/CLARO-website` | Path prefix. Set to `/` when serving from a custom domain root. |
 | `NEXT_PUBLIC_SITE_ORIGIN` | `https://hoda834.github.io` | Origin used for canonical URLs, Open Graph and JSON-LD. |
 | `NEXT_PUBLIC_GA_ID` | unset | Google Analytics 4 measurement ID (`G-XXXXXXXXXX`). Analytics is omitted entirely when unset. |
 
@@ -102,8 +102,12 @@ repository root through Jekyll and visitors see this README instead of the site.
 1. Add the domain in Settings → Pages → Custom domain, which commits a `CNAME` file.
 2. Create the DNS records GitHub shows there (a `CNAME` record pointing at
    `hoda834.github.io` for a subdomain such as `claro.hodarezvanjoo.com`).
-3. Set the repository variable `NEXT_PUBLIC_BASE_PATH` to an empty string and
+3. Set the repository variable `NEXT_PUBLIC_BASE_PATH` to `/` and
    `NEXT_PUBLIC_SITE_ORIGIN` to `https://your.domain`, then re-run the deploy workflow.
+
+   `/` rather than an empty string, because GitHub Actions passes an unset
+   repository variable through as an empty string — so empty has to mean
+   "not configured", and the root has to be requested explicitly.
 4. Enable **Enforce HTTPS** once the certificate is issued.
 
 Step 3 matters: on a custom domain the site is served from the root, so leaving the base

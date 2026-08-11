@@ -3,17 +3,27 @@
  * Update values here rather than editing pages directly.
  */
 
-/** Set NEXT_PUBLIC_BASE_PATH to "" when building for a custom domain. */
+// GitHub Actions passes an unset repository variable through as an empty
+// string rather than leaving it undefined, so `??` is not enough here: every
+// value below has to treat empty as "not configured" and fall back.
+
+/**
+ * Path prefix the site is served under. Empty means unconfigured, so the
+ * GitHub Pages project path is used. Set NEXT_PUBLIC_BASE_PATH to "/" to ask
+ * for the domain root explicitly, which is what a custom domain needs.
+ */
+const configuredBasePath = process.env.NEXT_PUBLIC_BASE_PATH?.trim();
 export const basePath =
-  process.env.NEXT_PUBLIC_BASE_PATH ?? "/CLARO-website";
+  configuredBasePath === "/" ? "" : configuredBasePath || "/CLARO-website";
 
 /** Absolute origin the site is served from, without a trailing slash. */
-export const siteOrigin =
-  process.env.NEXT_PUBLIC_SITE_ORIGIN ?? "https://hoda834.github.io";
+export const siteOrigin = (
+  process.env.NEXT_PUBLIC_SITE_ORIGIN?.trim() || "https://hoda834.github.io"
+).replace(/\/+$/, "");
 
 export const siteUrl = `${siteOrigin}${basePath}`;
 
-export const gaMeasurementId = process.env.NEXT_PUBLIC_GA_ID ?? "";
+export const gaMeasurementId = process.env.NEXT_PUBLIC_GA_ID?.trim() || "";
 
 export const appUrl = "https://claro-decision-support.streamlit.app/";
 export const repoUrl =

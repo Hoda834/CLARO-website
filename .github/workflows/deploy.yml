@@ -31,9 +31,10 @@ jobs:
 
       - name: Build static site
         env:
-          # Repo variables. Leave NEXT_PUBLIC_BASE_PATH unset while the site is
-          # served from /CLARO-website; set it to an empty string once a custom
-          # domain serves the site from the root.
+          # Repo variables. Unset variables arrive here as empty strings, which
+          # the build treats as "not configured". Leave NEXT_PUBLIC_BASE_PATH
+          # unset while the site is served from /CLARO-website; set it to "/"
+          # once a custom domain serves the site from the root.
           NEXT_PUBLIC_BASE_PATH: ${{ vars.NEXT_PUBLIC_BASE_PATH }}
           NEXT_PUBLIC_SITE_ORIGIN: ${{ vars.NEXT_PUBLIC_SITE_ORIGIN }}
           NEXT_PUBLIC_GA_ID: ${{ vars.NEXT_PUBLIC_GA_ID }}
