@@ -122,7 +122,7 @@ const structuredData = {
       ],
       keywords:
         "marketing budget allocation, constrained optimisation, linear programming, decision support, operations research",
-      sameAs: [repoUrl, pypiUrl, conceptDoiUrl],
+      sameAs: [repoUrl, pypiUrl, conceptDoiUrl, paperDoiUrl],
     },
     {
       "@type": "SoftwareSourceCode",
