@@ -31,6 +31,7 @@ export const wikiUrl = `${repoUrl}/wiki`;
 export const pypiUrl = "https://pypi.org/project/claro-engine/";
 export const conceptDoiUrl = "https://doi.org/10.5281/zenodo.20517492";
 export const versionDoiUrl = "https://doi.org/10.5281/zenodo.21230206";
+export const paperDoiUrl = "https://doi.org/10.1016/j.softx.2026.102935";
 export const orcidUrl = "https://orcid.org/0009-0006-3882-2669";
 export const authorSite = "https://hodarezvanjoo.com";
 export const citationFileUrl = `${repoUrl}/blob/main/CITATION.cff`;
