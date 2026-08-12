@@ -315,6 +315,13 @@ export default function Home() {
         <div className="citation">
           <h3>How to cite CLARO</h3>
           <p className="citation-text">
+            Rezvanjoo, H. (2026). <em>CLARO: Constrained budget allocation with rule-based decision interpretation</em>.{" "}
+            <em>SoftwareX</em>, 35, 102935.{" "}
+            <a href={paperDoiUrl} target="_blank" rel="noreferrer">
+              doi:10.1016/j.softx.2026.102935
+            </a>
+           </p>
+          <p className="citation-text">
             {author.name}. <em>CLARO: Constrained Linear Allocation and Resource Optimiser — a Decision-Support
             Framework for Marketing Budget Allocation</em>. Version {release.version}. Zenodo.{" "}
             <a href={versionDoiUrl} target="_blank" rel="noreferrer">doi:10.5281/zenodo.21230206</a>
@@ -355,7 +362,7 @@ export default function Home() {
           <a href={repoFooterLink} target="_blank" rel="noreferrer">GitHub</a>
           <a href={pypiLink} target="_blank" rel="noreferrer">PyPI</a>
           <a href={wikiLink} target="_blank" rel="noreferrer">Wiki</a>
-          <a href={conceptDoiUrl} target="_blank" rel="noreferrer">DOI</a>
+          <a href={paperDoiUrl} target="_blank" rel="noreferrer">Paper</a>
         </div>
       </footer>
     </main>
