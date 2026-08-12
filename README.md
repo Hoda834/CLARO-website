@@ -1,5 +1,7 @@
 # CLARO — Open-source Marketing Budget Optimisation and Decision-Support Software
 
+[![SoftwareX](https://img.shields.io/badge/SoftwareX-10.1016%2Fj.softx.2026.102935-E87722)](https://doi.org/10.1016/j.softx.2026.102935)
+
 **Website:** https://hoda834.github.io/CLARO-website/
 
 CLARO (Constrained Linear Allocation and Resource Optimiser) is free, open-source
