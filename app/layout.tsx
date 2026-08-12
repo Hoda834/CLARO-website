@@ -10,6 +10,7 @@ import {
   citationFileUrl,
   gaMeasurementId,
   orcidUrl,
+  paperDoiUrl,
   pypiUrl,
   release,
   repoUrl,
@@ -30,6 +31,11 @@ const geistMono = Geist_Mono({
 
 const title =
   "CLARO – Open-source Marketing Budget Optimisation and Decision-Support Software";
+
+const paperTitle =
+  "CLARO: Constrained budget allocation with rule-based decision interpretation";
+
+const paperDoi = "10.1016/j.softx.2026.102935";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -56,6 +62,8 @@ export const metadata: Metadata = {
     "PuLP CBC solver",
     "CLARO",
     "claro-engine",
+    "SoftwareX",
+    paperDoi,
   ],
   alternates: { canonical: `${siteUrl}/` },
   category: "technology",
@@ -75,7 +83,11 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    googleBot: { index: true, follow: true, "max-snippet": -1 },
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-snippet": -1,
+    },
   },
   icons: {
     icon: "/favicon.svg",
@@ -83,8 +95,8 @@ export const metadata: Metadata = {
   },
 };
 
-// Emitted as a @graph so crawlers can resolve the software, its source, its
-// author and the answered questions as one connected description.
+// One connected graph for the software, source code, web app, author,
+// peer-reviewed publication, archive and FAQ content.
 const structuredData = {
   "@context": "https://schema.org",
   "@graph": [
@@ -111,6 +123,12 @@ const structuredData = {
         priceCurrency: "USD",
       },
       author: { "@id": `${siteUrl}/#author` },
+      citation: { "@id": `${siteUrl}/#paper` },
+      subjectOf: { "@id": `${siteUrl}/#paper` },
+      hasPart: [
+        { "@id": `${siteUrl}/#source` },
+        { "@id": `${siteUrl}/#app` },
+      ],
       featureList: [
         "Linear programming budget allocation across platform-objective cells",
         "Named, auditable constraints with binding-constraint and shadow-price reporting",
@@ -122,7 +140,9 @@ const structuredData = {
       ],
       keywords:
         "marketing budget allocation, constrained optimisation, linear programming, decision support, operations research",
-      sameAs: [repoUrl, pypiUrl, conceptDoiUrl, paperDoiUrl],
+      // These URLs identify the software itself. The paper DOI is deliberately
+      // not in sameAs because the publication is a separate entity.
+      sameAs: [repoUrl, pypiUrl, conceptDoiUrl],
     },
     {
       "@type": "SoftwareSourceCode",
@@ -136,13 +156,58 @@ const structuredData = {
       license: "https://opensource.org/licenses/MIT",
       author: { "@id": `${siteUrl}/#author` },
       targetProduct: { "@id": `${siteUrl}/#software` },
+      citation: { "@id": `${siteUrl}/#paper` },
+    },
+    {
+      "@type": "ScholarlyArticle",
+      "@id": `${siteUrl}/#paper`,
+      name: paperTitle,
+      headline: paperTitle,
+      description:
+        "Peer-reviewed SoftwareX article describing CLARO's constrained budget allocation and rule-based decision interpretation framework.",
+      url: paperDoiUrl,
+      identifier: [
+        {
+          "@type": "PropertyValue",
+          propertyID: "DOI",
+          value: paperDoi,
+        },
+        {
+          "@type": "PropertyValue",
+          propertyID: "Article number",
+          value: "102935",
+        },
+      ],
+      datePublished: "2026",
+      author: { "@id": `${siteUrl}/#author` },
+      publisher: {
+        "@type": "Organization",
+        name: "Elsevier",
+      },
+      isPartOf: {
+        "@type": "PublicationVolume",
+        volumeNumber: "35",
+        isPartOf: {
+          "@type": "Periodical",
+          name: "SoftwareX",
+          publisher: {
+            "@type": "Organization",
+            name: "Elsevier",
+          },
+        },
+      },
+      about: { "@id": `${siteUrl}/#software` },
     },
     {
       "@type": "Person",
       "@id": `${siteUrl}/#author`,
       name: author.name,
       url: author.site,
-      identifier: orcidUrl,
+      identifier: {
+        "@type": "PropertyValue",
+        propertyID: "ORCID",
+        value: "0009-0006-3882-2669",
+      },
       sameAs: [orcidUrl, author.site],
     },
     {
@@ -161,18 +226,27 @@ const structuredData = {
       mainEntity: faqs.map((faq) => ({
         "@type": "Question",
         name: faq.question,
-        acceptedAnswer: { "@type": "Answer", text: faq.answer },
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faq.answer,
+        },
       })),
     },
     {
       "@type": "CreativeWork",
       "@id": `${siteUrl}/#archive`,
-      name: "CLARO archived release",
-      identifier: versionDoiUrl,
-      url: conceptDoiUrl,
+      name: `CLARO ${release.version} archived software release`,
+      identifier: {
+        "@type": "PropertyValue",
+        propertyID: "DOI",
+        value: versionDoiUrl.replace("https://doi.org/", ""),
+      },
+      url: versionDoiUrl,
+      sameAs: [conceptDoiUrl],
       license: "https://opensource.org/licenses/MIT",
       author: { "@id": `${siteUrl}/#author` },
-      citation: citationFileUrl,
+      usageInfo: citationFileUrl,
+      citation: { "@id": `${siteUrl}/#paper` },
       about: { "@id": `${siteUrl}/#software` },
     },
     {
@@ -183,11 +257,18 @@ const structuredData = {
       applicationCategory: "BusinessApplication",
       browserRequirements: "Requires JavaScript",
       isAccessibleForFree: true,
-      offers: { "@type": "Offer", price: "0", priceCurrency: "USD" },
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "USD",
+      },
       isPartOf: { "@id": `${siteUrl}/#software` },
+      citation: { "@id": `${siteUrl}/#paper` },
     },
   ],
 };
+
+const jsonLd = JSON.stringify(structuredData).replace(/</g, "\\u003c");
 
 export default function RootLayout({
   children,
@@ -196,16 +277,16 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en-GB">
-      <head>
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }}
-        />
-      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: jsonLd }}
+        />
+
         {children}
+
         {gaMeasurementId ? (
           <>
             <Script
