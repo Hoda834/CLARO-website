@@ -117,6 +117,6 @@ export const faqs = [
   {
     question: "How do I cite CLARO?",
     answer:
-      "Cite the archived Zenodo record. The concept DOI 10.5281/zenodo.20517492 always resolves to the latest version; version 0.2.1 is archived at DOI 10.5281/zenodo.21230206. The repository includes a CITATION.cff file, and the author is Hoda Rezvanjoo (ORCID 0009-0006-3882-2669).",
+  "Cite the peer-reviewed SoftwareX paper: Rezvanjoo, H. (2026). CLARO: Constrained budget allocation with rule-based decision interpretation. SoftwareX, 35, 102935. DOI 10.1016/j.softx.2026.102935. For a specific software release, use the corresponding Zenodo DOI.",
   },
 ];
