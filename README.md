@@ -43,6 +43,9 @@ Author: Hoda Rezvanjoo ([ORCID 0009-0006-3882-2669](https://orcid.org/0009-0006-
 
 ## Citation
 
+> Rezvanjoo, H. (2026). CLARO: Constrained budget allocation with rule-based decision interpretation. *SoftwareX*, 35, 102935.  
+> https://doi.org/10.1016/j.softx.2026.102935
+
 > Rezvanjoo, Hoda. *CLARO: Constrained Linear Allocation and Resource Optimiser — a
 > Decision-Support Framework for Marketing Budget Allocation*. Version 0.2.1. Zenodo.
 > [doi:10.5281/zenodo.21230206](https://doi.org/10.5281/zenodo.21230206)
