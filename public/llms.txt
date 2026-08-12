@@ -47,9 +47,13 @@ consultants, and researchers or students studying applied operations research.
 - Python package: https://pypi.org/project/claro-engine/
 - Archived release (concept DOI): https://doi.org/10.5281/zenodo.20517492
 - Archived release (v0.2.1): https://doi.org/10.5281/zenodo.21230206
+- Peer-reviewed paper (SoftwareX): https://doi.org/10.1016/j.softx.2026.102935
 
 ## Citation
 
-Rezvanjoo, Hoda. *CLARO: Constrained Linear Allocation and Resource Optimiser — a
-Decision-Support Framework for Marketing Budget Allocation*. Version 0.2.1. Zenodo.
-doi:10.5281/zenodo.21230206
+Rezvanjoo, H. (2026). *CLARO: Constrained budget allocation with rule-based decision interpretation*. SoftwareX, 35, 102935.
+https://doi.org/10.1016/j.softx.2026.102935
+
+Software archive:
+- Concept DOI: https://doi.org/10.5281/zenodo.20517492
+- Version 0.2.1: https://doi.org/10.5281/zenodo.21230206
